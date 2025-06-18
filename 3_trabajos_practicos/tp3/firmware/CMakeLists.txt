@@ -36,8 +36,11 @@ pico_sdk_init()
 # Add external FreeRTOS library
 add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/../freertos ${CMAKE_BINARY_DIR}/freertos)
 
-# Añadir la subcarpeta donde está la biblioteca LCD
+# Añadir la subcarpeta donde está la biblioteca HELPER
 add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/../helper ${CMAKE_BINARY_DIR}/helper)
+
+# Añadir la subcarpeta donde está la biblioteca LCD
+add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/../lcd ${CMAKE_BINARY_DIR}/lcd)
 
 # Add executable. Default name is the project name, version 0.1
 
@@ -51,11 +54,11 @@ pico_enable_stdio_uart(firmware 0)
 pico_enable_stdio_usb(firmware 1)
 
 # Add the standard library to the build
-target_link_libraries(
-        firmware 
+target_link_libraries(firmware 
+        freertos
         helper
-        pico_stdlib
-        freertos)
+        lcd
+        pico_stdlib)
 
 # Add the standard include files to the build
 target_include_directories(firmware PRIVATE
